@@ -1,0 +1,81 @@
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-space-grotesk: 'Space Grotesk', sans-serif;
+    --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  html,
+  body {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: #f8faf8;
+    color: #191c1b;
+    font-family: var(--font-plus-jakarta);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* Material Symbols Outlined */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide scrollbars for slick mobile look */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom animation pulses */
+@keyframes living-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(15, 81, 50, 0.4);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 16px rgba(15, 81, 50, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(15, 81, 50, 0);
+  }
+}
+
+.living-pulse-effect {
+  animation: living-pulse 2.2s infinite;
+}

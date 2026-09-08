@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-lowest": "#ffffff", "secondary": "#a0401c", "on-secondary-fixed": "#390c00", "surface-canvas": "#FBF9F5", "surface-bright": "#f8faf8", "surface-container-low": "#f2f4f2", "on-primary-fixed": "#002111", "surface": "#f8faf8", "risk-low-subtle": "#EFF3F0", "on-secondary": "#ffffff", "on-error-container": "#93000a", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#2b4966", "error-container": "#ffdad6", "risk-high": "#E66A1F", "primary-fixed-dim": "#95d4ac", "state-resolved": "#0E7A45", "risk-medium": "#D48806", "on-secondary-container": "#722200", "surface-card": "#FFFFFF", "on-primary": "#ffffff", "surface-container-high": "#e7e9e6", "risk-medium-subtle": "#FEF7E6", "inverse-on-surface": "#f0f1ef", "surface-variant": "#e1e3e1", "background": "#f8faf8", "risk-critical": "#D93829", "tertiary-fixed-dim": "#abc9ec", "secondary-fixed-dim": "#ffb59c", "on-tertiary-container": "#9ab8da", "tertiary": "#11324e", "risk-low": "#526B5C", "outline-variant": "#c0c9c0", "surface-tint": "#2d6a48", "surface-container": "#edeeec", "tertiary-container": "#2b4966", "on-primary-fixed-variant": "#0f5132", "surface-container-highest": "#e1e3e1", "on-surface": "#191c1b", "secondary-container": "#fe875d", "inverse-primary": "#95d4ac", "on-secondary-fixed-variant": "#802a05", "risk-critical-subtle": "#FDECEB", "on-surface-variant": "#404942", "on-tertiary": "#ffffff", "on-primary-container": "#84c39b", "primary-fixed": "#b0f1c7", "surface-dim": "#d9dad8", "surface-subtle": "#F3EFEA", "outline": "#707971", "secondary-fixed": "#ffdbcf", "tertiary-fixed": "#cfe5ff", "state-resolved-subtle": "#E8F5EE", "risk-high-subtle": "#FEF0E6", "on-background": "#191c1b", "primary": "#003820", "primary-container": "#0f5132", "inverse-surface": "#2e3130", "on-tertiary-fixed": "#001d34", "error": "#ba1a1a" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "max-content-width": "42rem", "space-xs": "0.5rem", "space-xxs": "0.25rem", "space-sm": "0.75rem", "margin-mobile": "1.25rem", "margin-desktop": "3rem", "margin-tablet": "2rem", "space-2xl": "3rem", "space-3xl": "4rem", "space-md": "1rem", "space-xl": "2rem", "touch-target-min": "3rem" }, "fontFamily": { "label-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "display-lg": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "body-xl": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-sm": ["Space Grotesk"], "label-md": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "display-lg-mobile": ["Space Grotesk"], "headline-lg-mobile": ["Space Grotesk"] }, "fontSize": { "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "400" }], "display-lg": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-lg": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-xl": ["19px", { "lineHeight": "28px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" }], "label-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }], "display-lg-mobile": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }] } } } };</script><style>@layer base { html, body { width: 100vw; margin: 0; padding: 0; } body { overscroll-behavior-y: none; -webkit-tap-highlight-color: transparent; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style></head><body class="bg-surface text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 inset-x-0 z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin-mobile flex items-center justify-between max-w-max-content-width mx-auto"><div class="flex items-center gap-space-xs"><img alt="ProofFix Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VVvsRQizMnAEN56JjdvnBlXYujKgr4IZzFTim4x8mH23PaCx0GfkoheCEsp7faqAQ9AkEFoCl1JpAbv4ZlKVmT3FsNBv_WE_YS3I7Y9sgN9dPR963hEF7pjCdhdHEW_JWxuZcDa-ymZiggTwhap1kTTEFX8xcBFQ0ZpSvJ3v2OYHMdjak6JEiiN6eV_w70uWj7m633PAq654htDQqsCMjy1wiK2avSZ9jgySKEGkTlSukofxQ0_89j1GU"/><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">ProofFix</span><span class="font-label-sm text-label-sm text-on-surface-variant font-normal hidden xs:inline-block ml-space-xxs">• Risks Discovery</span></div><div class="flex items-center gap-space-xs"><span class="font-label-md text-label-md text-on-surface hidden sm:inline-block">Risks Discovery</span><img alt="Profile" class="w-8 h-8 rounded-full object-cover shadow-[0_2px_6px_rgba(25,28,27,0.1)] ring-1 ring-surface-variant/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzn4eIyoK8aAufVSpoHQ8xClPPjFFwyOuw1bQJaIid2VuIY8b0llt9PGxwvQj8wMac6InVRvZCEFDcQKB5SWBABKKKck0BvS38Ja1tpYTFPjFLJS-kANF2gXdlYU9hOIN-mcgZH-IwhiXdPa5S2x-PVq1IlREjHW0evlBG0LMGHspyXA9TONCT94v5obLOpr1G0ZQZxJ1KQ7purUyw3MQgoK8ASXM0fVA8i2UVaBvVNcxj9IlXHfwIOA"/></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full max-w-max-content-width mx-auto px-margin-mobile">
+<!-- Header & Exploration Title -->
+<section class="flex flex-col pt-space-md pb-space-xs">
+<div class="flex items-baseline justify-between">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-semibold tracking-tight">
+        Risks around you
+      </h1>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary-container font-semibold">
+<span class="w-2 h-2 rounded-full bg-state-resolved animate-pulse"></span>
+        Live radar
+      </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+      Verified hazards awaiting community and civic resolution
+    </p>
+</section>
+<!-- Search & City Selection Strip -->
+<section class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Search Bar -->
+<div class="relative w-full flex items-center bg-surface-card rounded-full shadow-[0_4px_16px_rgba(25,28,27,0.04)] px-space-md py-2.5">
+<span class="material-symbols-outlined text-outline text-[20px] select-none">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline px-space-xs focus:outline-none" placeholder="Search city or area..." type="text" value="Anna Nagar, Chennai"/>
+<div class="flex items-center gap-1 px-2.5 py-1 bg-surface-container rounded-full shrink-0">
+<span class="material-symbols-outlined text-primary-container text-[14px]">location_on</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Chennai</span>
+</div>
+</div>
+<!-- Quick City Pills (Horizontal Scroll) -->
+<div class="flex items-center gap-space-xs overflow-x-auto no-scrollbar py-0.5 -mx-margin-mobile px-margin-mobile">
+<button class="flex items-center gap-1 px-4 py-2 rounded-full bg-primary-container text-on-primary font-label-md text-label-md font-medium shrink-0 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+        Chennai
+      </button>
+<button class="px-4 py-2 rounded-full bg-surface-card text-on-surface-variant font-label-md text-label-md font-medium shrink-0 hover:bg-surface-container transition-colors" type="button">
+        Puducherry
+      </button>
+<button class="px-4 py-2 rounded-full bg-surface-card text-on-surface-variant font-label-md text-label-md font-medium shrink-0 hover:bg-surface-container transition-colors" type="button">
+        Coimbatore
+      </button>
+<button class="px-4 py-2 rounded-full bg-surface-card text-on-surface-variant font-label-md text-label-md font-medium shrink-0 hover:bg-surface-container transition-colors" type="button">
+        Bengaluru
+      </button>
+</div>
+<!-- View Mode Switcher -->
+<div class="flex items-center justify-between pt-space-xxs">
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+        Filtered for <strong class="text-on-surface font-semibold">Greater Chennai (18 active)</strong>
+</span>
+<div class="flex items-center bg-surface-container p-1 rounded-full shrink-0">
+<button class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-card text-on-surface shadow-[0_2px_6px_rgba(25,28,27,0.06)] font-label-sm text-label-sm font-semibold transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">view_agenda</span>
+          List
+        </button>
+<button class="flex items-center gap-1 px-3 py-1 rounded-full text-on-surface-variant font-label-sm text-label-sm font-medium hover:text-on-surface transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">map</span>
+          Map
+        </button>
+</div>
+</div>
+</section>
+<!-- Severity & Filter Row -->
+<section class="flex flex-col gap-space-xs pt-space-xs pb-space-sm">
+<!-- Severity Chips -->
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 -mx-margin-mobile px-margin-mobile">
+<button class="px-3.5 py-1.5 rounded-full bg-on-surface text-surface font-label-sm text-label-sm font-semibold shrink-0" type="button">
+        All
+      </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-card text-on-surface font-label-sm text-label-sm shrink-0 hover:bg-surface-container transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-risk-critical"></span>
+        Critical
+      </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-card text-on-surface font-label-sm text-label-sm shrink-0 hover:bg-surface-container transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-risk-high"></span>
+        High
+      </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-card text-on-surface font-label-sm text-label-sm shrink-0 hover:bg-surface-container transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-risk-medium"></span>
+        Medium
+      </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-card text-on-surface font-label-sm text-label-sm shrink-0 hover:bg-surface-container transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-risk-low"></span>
+        Low
+      </button>
+</div>
+<!-- Secondary Meta Selectors -->
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-1 px-3 py-1 bg-surface-card rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span>Issue type</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<button class="flex items-center gap-1 px-3 py-1 bg-surface-card rounded-full font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span>Status</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</section>
+<!-- Incident Feed (Consumer Card Stack) -->
+<section class="flex flex-col gap-space-lg pb-space-2xl">
+<!-- INCIDENT CARD 1 -->
+<article class="flex flex-col bg-surface-card rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(25,28,27,0.05)] transition-transform active:scale-[0.99]">
+<!-- Visual Media Frame -->
+<div class="relative w-full h-56 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close eye level photo of scattered pharmaceutical blister packs and discarded prescription medicine boxes lying on a dusty neighborhood street sidewalk in Anna Nagar Chennai next to a weathered wall with faded Tamil lettering" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSvwzY4bOW9e3StFidT1wWZ6W5H6iMqVqbAtBXYqpmkZfUPlXIM_Zs5OttiCDf4j9F6KNGOiUfaVOc6E3tMXBiE8woaTpI-8RQOv0uH7jBXPGmpskx6l6zH6uwWCXIQ_69bMqa7at2aWavmn0eB7Taiu6mlZbuJrJ7jXGwkO7-aLSM7xneLsrwxV4JiI3OtMu6HywmZqOM_6GE-xF0We7vrrH7sDuQSc1gVuLC3g2TQ7XghYWIEhY4Uw"/>
+<!-- Top Overlay Badges -->
+<div class="absolute top-3 inset-x-3 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-risk-critical-subtle text-risk-critical font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="w-2 h-2 rounded-full bg-risk-critical animate-ping"></span>
+            Critical Risk
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-card/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm font-medium">
+            14m ago
+          </span>
+</div>
+</div>
+<!-- Content Details -->
+<div class="flex flex-col p-space-md gap-space-xs">
+<div class="flex items-start justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-tight">
+              Discarded medicines
+            </h2>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[16px] text-primary-container">near_me</span>
+<span>Anna Nagar, 2nd Avenue • 120m away</span>
+</div>
+</div>
+<!-- Status Indicator -->
+<span class="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold shrink-0">
+            Open
+          </span>
+</div>
+<!-- Social Proof Confirmation Bar -->
+<div class="flex items-center justify-between pt-space-xs mt-space-xxs bg-surface-container-low rounded-lg p-space-xs">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2 overflow-hidden">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-container text-on-primary font-label-sm text-[10px] font-bold ring-2 ring-surface-card">K</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-tertiary text-on-tertiary font-label-sm text-[10px] font-bold ring-2 ring-surface-card">V</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-secondary text-on-secondary font-label-sm text-[10px] font-bold ring-2 ring-surface-card">R</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">
+              8 confirmations
+            </span>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-primary-container font-semibold hover:underline" type="button">
+<span>Verify</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- INCIDENT CARD 2 -->
+<article class="flex flex-col bg-surface-card rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(25,28,27,0.05)] transition-transform active:scale-[0.99]">
+<!-- Visual Media Frame -->
+<div class="relative w-full h-56 bg-surface-container">
+<img alt="Fallen tree on street" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1XLy79Qc_95qyy22pSCRkVDVJxUBeek9tS0CvqJSoxIKDWa0_5IAq7_NpiBYJYWBnNJwMBWMwiJuGUAJzzci1qdaIwaJvAdTm8VOTDqWseVlPm70kJujFX1mlPZgQsfYyjAcpbeV3Pg3PC6Qg-S1OQ3HxFz3VTYvoqL56YOGNediTT0SQqtwkU3DBkuBiCtrOpNJYadyqbrdXH2QyraVRRJum23S0E1rTpokTqyzZoWfia8zR2MRR_zApax"/>
+<!-- Top Overlay Badges -->
+<div class="absolute top-3 inset-x-3 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-risk-high-subtle text-risk-high font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="w-2 h-2 rounded-full bg-risk-high"></span>
+            High Risk
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-card/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm font-medium">
+            32m ago
+          </span>
+</div>
+</div>
+<!-- Content Details -->
+<div class="flex flex-col p-space-md gap-space-xs">
+<div class="flex items-start justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-tight">
+              Fallen tree
+            </h2>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[16px] text-primary-container">near_me</span>
+<span>T Nagar, Usman Road • 850m away</span>
+</div>
+</div>
+<!-- Status Indicator -->
+<span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold shrink-0">
+            Being resolved
+          </span>
+</div>
+<!-- Social Proof Confirmation Bar -->
+<div class="flex items-center justify-between pt-space-xs mt-space-xxs bg-surface-container-low rounded-lg p-space-xs">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2 overflow-hidden">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary text-on-primary font-label-sm text-[10px] font-bold ring-2 ring-surface-card">A</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-surface-dim text-on-surface font-label-sm text-[10px] font-bold ring-2 ring-surface-card">S</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">
+              4 confirmations
+            </span>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-primary-container font-semibold hover:underline" type="button">
+<span>Details</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+<!-- INCIDENT CARD 3 -->
+<article class="flex flex-col bg-surface-card rounded-xl overflow-hidden shadow-[0_8px_24px_rgba(25,28,27,0.05)] transition-transform active:scale-[0.99]">
+<!-- Visual Media Frame -->
+<div class="relative w-full h-56 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Close street angle of a deep circular asphalt pothole filled with rainwater on a bustling main street in Velachery Chennai with passing auto rickshaws and two-wheelers in soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCL8STiUb62jNyZzp8efMdXUE4yhywY-jj0_PwkErurub0zR3HNtfKHEB4eMPc2UuWLMfSCpfIxXx5NJjMMwXTmMlXr4p3umHKNvEfnaBPyIi_dRKdXd9WYfqlymhhD5ThrTkIJpCT13nqTyLCFTnIZwnhjYVD-tgjd8eGrm2YpHV95WvNQfoVXVszl1E0OxsOplzRRtECNg853_1N2RSytjUAFL-ZrmuuC0ceoJ3BNlyBj0htxpK3vg"/>
+<!-- Top Overlay Badges -->
+<div class="absolute top-3 inset-x-3 flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-risk-medium-subtle text-risk-medium font-label-sm text-label-sm font-semibold shadow-sm">
+<span class="w-2 h-2 rounded-full bg-risk-medium"></span>
+            Medium Risk
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-card/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm font-medium">
+            1h ago
+          </span>
+</div>
+</div>
+<!-- Content Details -->
+<div class="flex flex-col p-space-md gap-space-xs">
+<div class="flex items-start justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold leading-tight">
+              Pothole
+            </h2>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[16px] text-primary-container">near_me</span>
+<span>Velachery, Bypass Road • 1.8km away</span>
+</div>
+</div>
+<!-- Status Indicator -->
+<span class="px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-semibold shrink-0">
+            Open
+          </span>
+</div>
+<!-- Social Proof Confirmation Bar -->
+<div class="flex items-center justify-between pt-space-xs mt-space-xxs bg-surface-container-low rounded-lg p-space-xs">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2 overflow-hidden">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px] font-bold ring-2 ring-surface-card">M</span>
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-[10px] font-bold ring-2 ring-surface-card">D</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">
+              2 confirmations
+            </span>
+</div>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-primary-container font-semibold hover:underline" type="button">
+<span>Verify</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</article>
+</section>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-4px_20px_rgba(25,28,27,0.04)]" data-active-classes="text-primary-container"><div class="flex justify-around items-center h-16 max-w-max-content-width mx-auto px-space-xs relative"><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="home-feed" href="#"><span class="material-symbols-outlined text-[24px]">roofing</span><span class="font-label-sm text-label-sm font-medium mt-0.5">Home</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-space-xs transition-colors text-primary-container" data-path="risks-discovery" href="#"><span class="material-symbols-outlined text-[24px]">warning_amber</span><span class="font-label-sm text-label-sm font-medium mt-0.5">Risks</span></a><a class="flex flex-col items-center justify-center -mt-6 group min-w-[48px] min-h-[48px]" data-path="live-camera-report" href="#"><div class="w-14 h-14 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-[0_8px_24px_-2px_rgba(15,81,50,0.36)] group-active:scale-95 transition-transform duration-150 ring-4 ring-surface"><span class="material-symbols-outlined text-[28px]">photo_camera</span></div><span class="font-label-sm text-label-sm font-medium text-on-surface mt-1">Report</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="community-actions" href="#"><span class="material-symbols-outlined text-[24px]">pulse_alert</span><span class="font-label-sm text-label-sm font-medium mt-0.5">Activity</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] px-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="civic-profile" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-label-sm text-label-sm font-medium mt-0.5">Profile</span></a></div></nav></body></html>
