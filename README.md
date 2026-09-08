@@ -107,29 +107,30 @@ When a new report is initiated:
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ End-to-End Workflow Architecture
 
 ```mermaid
 flowchart TD
-    Client["Browser / Mobile Client"] --> GPS["Device Geolocation"]
-    Client --> CAM["WebRTC Live Viewfinder"]
-    Client --> UI["Next.js App Router Interface"]
-
-    UI --> API_SEARCH["/api/location-search"]
-    UI --> API_GEO["/api/geocode"]
-    UI --> API_INC["/api/incidents"]
-    UI --> API_AI["/api/analyze-incident"]
-    UI --> API_CONF["/api/confirm-incident"]
-    UI --> API_RES["/api/verify-resolution"]
-
-    API_SEARCH --> GEOAPIFY["Geoapify Autocomplete API"]
-    API_AI --> GEMINI["Google Gemini API"]
-    API_RES --> GEMINI
-
-    API_INC --> SUPA_DB[("Supabase PostgreSQL + PostGIS")]
-    API_INC --> SUPA_STORAGE["Supabase Storage Buckets"]
-    API_CONF --> SUPA_DB
-    API_RES --> SUPA_DB
+    Citizen["Citizen"] --> Capture["Live GPS + Camera Capture"]
+    Capture --> API["Next.js API"]
+    
+    API --> Gemini["Gemini Multimodal Observation"]
+    API --> PostGIS["PostGIS Nearby Search"]
+    
+    Gemini --> Priority["Deterministic Priority Engine"]
+    PostGIS --> Duplicate["4-Factor Duplicate Detection"]
+    
+    Priority --> Incident["Supabase Incident Record"]
+    Duplicate --> Incident
+    
+    Incident --> Discovery["Risks Feed + MapLibre Map"]
+    Incident --> Confirmation["Community Confirmation"]
+    
+    Confirmation --> Resolve["Help Resolve"]
+    Resolve --> ResCapture["Live Resolution Capture"]
+    ResCapture --> ResGemini["Gemini Before/After Comparison"]
+    ResGemini --> Validation["Server-Side Resolution Validation"]
+    Validation --> Resolved["Resolved Incident"]
 ```
 
 ---
