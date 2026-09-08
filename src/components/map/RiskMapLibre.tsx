@@ -4,24 +4,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { Incident } from '@/types';
 import Link from 'next/link';
-import Image from 'next/image';
 import { SafeIncidentImage } from '@/components/ui/SafeIncidentImage';
+import { RiskLocationSelection } from '@/lib/locationState';
 
 interface RiskMapLibreProps {
   incidents: Incident[];
-  selectedCity?: string;
+  selectedLocation?: RiskLocationSelection | null;
   onSelectIncident?: (incident: Incident) => void;
 }
 
-const CITY_COORDINATES: Record<string, [number, number]> = {
-  Puducherry: [79.8359, 11.9338],
-  Bengaluru: [77.5946, 12.9716],
-  Chennai: [80.2155, 13.0854],
-  Coimbatore: [76.9558, 11.0168],
-  Madurai: [78.1198, 9.9252],
-};
-
-export function RiskMapLibre({ incidents, selectedCity = 'All Cities', onSelectIncident }: RiskMapLibreProps) {
+export function RiskMapLibre({ incidents, selectedLocation, onSelectIncident }: RiskMapLibreProps) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
@@ -32,9 +24,21 @@ export function RiskMapLibre({ incidents, selectedCity = 'All Cities', onSelectI
   useEffect(() => {
     if (!mapContainerRef.current) return;
 
-    const initialCoords =
-      (selectedCity && CITY_COORDINATES[selectedCity]) ||
-      (incidents.length > 0 ? [incidents[0].longitude, incidents[0].latitude] : [79.8359, 11.9338]);
+    let initialCenter: [number, number] = [78.9629, 20.5937]; // General India center overview
+    let initialZoom = 4.5;
+
+    if (
+      selectedLocation &&
+      typeof selectedLocation.latitude === 'number' &&
+      typeof selectedLocation.longitude === 'number' &&
+      (selectedLocation.latitude !== 0 || selectedLocation.longitude !== 0)
+    ) {
+      initialCenter = [selectedLocation.longitude, selectedLocation.latitude];
+      initialZoom = 13.5;
+    } else if (incidents.length > 0) {
+      initialCenter = [incidents[0].longitude, incidents[0].latitude];
+      initialZoom = 12;
+    }
 
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
@@ -58,8 +62,8 @@ export function RiskMapLibre({ incidents, selectedCity = 'All Cities', onSelectI
           },
         ],
       },
-      center: initialCoords as [number, number],
-      zoom: selectedCity === 'All Cities' ? 8 : 13.5,
+      center: initialCenter,
+      zoom: initialZoom,
       pitch: 0,
     });
 
@@ -71,25 +75,30 @@ export function RiskMapLibre({ incidents, selectedCity = 'All Cities', onSelectI
     };
   }, []);
 
-  // Update map center when city changes
+  // Update map center when selectedLocation changes
   useEffect(() => {
     if (!mapRef.current) return;
-    const coords = CITY_COORDINATES[selectedCity];
-    if (coords) {
+
+    if (
+      selectedLocation &&
+      typeof selectedLocation.latitude === 'number' &&
+      typeof selectedLocation.longitude === 'number' &&
+      (selectedLocation.latitude !== 0 || selectedLocation.longitude !== 0)
+    ) {
       mapRef.current.flyTo({
-        center: coords,
+        center: [selectedLocation.longitude, selectedLocation.latitude],
         zoom: 13.5,
         essential: true,
       });
-    } else if (selectedCity === 'All Cities' && incidents.length > 0) {
+    } else if (incidents.length > 0) {
       // Fit to all incidents bounds
       const bounds = new maplibregl.LngLatBounds();
       incidents.forEach((inc) => bounds.extend([inc.longitude, inc.latitude]));
       mapRef.current.fitBounds(bounds, { padding: 60, maxZoom: 14 });
     }
-  }, [selectedCity, incidents]);
+  }, [selectedLocation, incidents]);
 
-  // Render Risk Markers
+  // Render Risk Markers from live Supabase coordinates
   useEffect(() => {
     if (!mapRef.current) return;
 
@@ -160,7 +169,7 @@ export function RiskMapLibre({ incidents, selectedCity = 'All Cities', onSelectI
       {/* MapLibre Canvas Container */}
       <div ref={mapContainerRef} className="w-full h-full absolute inset-0" />
 
-      {/* Selected Incident Drawer (Stitch Screen 5 Bottom Card) */}
+      {/* Selected Incident Drawer */}
       {selectedIncident ? (
         <div className="absolute bottom-20 inset-x-margin-mobile z-40 max-w-max-content-width mx-auto animate-in fade-in slide-in-from-bottom-6 duration-300">
           <div className="bg-surface-card rounded-2xl p-space-md shadow-2xl border border-surface-variant/40 flex flex-col gap-space-sm">
@@ -180,7 +189,8 @@ export function RiskMapLibre({ incidents, selectedCity = 'All Cities', onSelectI
                   {selectedIncident.severity}
                 </span>
                 <span className="text-xs text-on-surface-variant font-medium">
-                  • {selectedIncident.confirmation_count} {selectedIncident.confirmation_count === 1 ? 'confirmation' : 'confirmations'}
+                  • {selectedIncident.confirmation_count}{' '}
+                  {selectedIncident.confirmation_count === 1 ? 'confirmation' : 'confirmations'}
                 </span>
               </div>
 

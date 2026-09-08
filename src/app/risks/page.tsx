@@ -2,34 +2,36 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { BottomNavBar } from '@/components/layout/BottomNavBar';
 import { SafeIncidentImage } from '@/components/ui/SafeIncidentImage';
+import { RiskLocationSearch } from '@/components/risks/RiskLocationSearch';
 import { Incident } from '@/types';
+import {
+  RiskLocationSelection,
+  getSelectedRiskLocation,
+  setSelectedRiskLocation,
+} from '@/lib/locationState';
 
-import { getSelectedRiskCity, setSelectedRiskCity } from '@/lib/locationState';
-
-const CITIES = ['All Cities', 'Puducherry', 'Bengaluru', 'Chennai', 'Coimbatore', 'Madurai'];
 const SEVERITY_FILTERS = ['all', 'critical', 'high', 'medium', 'resolved'];
 
 export default function RisksDiscoveryPage() {
-  const [selectedCity, setSelectedCity] = useState<string>('All Cities');
+  const [selectedLocation, setSelectedLocation] = useState<RiskLocationSelection | null>(null);
   const [selectedSeverity, setSelectedSeverity] = useState<string>('all');
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Initialize selectedRiskCity separately from GPS telemetry
+  // Initialize selectedRiskLocation separately from report GPS telemetry
   useEffect(() => {
-    const saved = getSelectedRiskCity();
-    if (saved && CITIES.includes(saved)) {
-      setSelectedCity(saved);
+    const saved = getSelectedRiskLocation();
+    if (saved) {
+      setSelectedLocation(saved);
     }
   }, []);
 
-  const handleCityChange = (city: string) => {
-    setSelectedCity(city);
-    setSelectedRiskCity(city);
+  const handleLocationChange = (loc: RiskLocationSelection | null) => {
+    setSelectedLocation(loc);
+    setSelectedRiskLocation(loc);
   };
 
   useEffect(() => {
@@ -37,7 +39,12 @@ export default function RisksDiscoveryPage() {
       setLoading(true);
       try {
         const queryParams = new URLSearchParams();
-        if (selectedCity !== 'All Cities') queryParams.append('city', selectedCity);
+        if (selectedLocation?.city) {
+          queryParams.append('city', selectedLocation.city);
+        } else if (selectedLocation?.locality) {
+          queryParams.append('city', selectedLocation.locality);
+        }
+
         if (selectedSeverity === 'resolved') {
           queryParams.append('status', 'resolved');
         } else if (selectedSeverity !== 'all') {
@@ -57,7 +64,7 @@ export default function RisksDiscoveryPage() {
     }
 
     fetchRisks();
-  }, [selectedCity, selectedSeverity]);
+  }, [selectedLocation, selectedSeverity]);
 
   return (
     <div className="flex flex-col min-h-screen bg-surface text-on-surface">
@@ -65,28 +72,13 @@ export default function RisksDiscoveryPage() {
 
       <main className="flex-1 w-full pt-16 pb-24">
         <div className="flex flex-col w-full max-w-max-content-width mx-auto px-margin-mobile pb-space-2xl">
-          {/* Top City Discovery Bar & View Switcher */}
+          {/* Top Autocomplete Search Bar & View Switcher */}
           <div className="flex items-center justify-between mt-4 gap-2">
-            {/* City Selector */}
-            <div className="relative flex-1">
-              <select
-                value={selectedCity}
-                onChange={(e) => handleCityChange(e.target.value)}
-                className="w-full h-11 pl-10 pr-8 rounded-full bg-surface-card border border-surface-variant/40 font-headline font-semibold text-sm text-on-surface appearance-none focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
-              >
-                {CITIES.map((c) => (
-                  <option key={c} value={c}>
-                    📍 {c}
-                  </option>
-                ))}
-              </select>
-              <span className="material-symbols-outlined absolute left-3.5 top-2.5 text-[20px] text-primary pointer-events-none">
-                location_city
-              </span>
-              <span className="material-symbols-outlined absolute right-3 top-2.5 text-[20px] text-on-surface-variant pointer-events-none">
-                expand_more
-              </span>
-            </div>
+            {/* Searchable Autocomplete Location Combobox */}
+            <RiskLocationSearch
+              selectedLocation={selectedLocation}
+              onSelectLocation={handleLocationChange}
+            />
 
             {/* List / Map Switcher Button */}
             <Link
@@ -120,10 +112,10 @@ export default function RisksDiscoveryPage() {
 
           {/* Incidents Count Header */}
           <div className="flex items-center justify-between mt-2 mb-3">
-            <h2 className="font-headline font-semibold text-base text-on-surface">
-              {selectedCity === 'All Cities' ? 'All Areas' : selectedCity} Reports ({incidents.length})
+            <h2 className="font-headline font-semibold text-base text-on-surface truncate">
+              {selectedLocation ? selectedLocation.label : 'All Areas'} Reports ({incidents.length})
             </h2>
-            <span className="text-xs text-on-surface-variant font-medium">Prioritized by urgency</span>
+            <span className="text-xs text-on-surface-variant font-medium shrink-0 ml-2">Prioritized by urgency</span>
           </div>
 
           {/* Incidents List */}

@@ -15,8 +15,19 @@ export interface ReportTelemetry {
   is_gps_verified?: boolean;
 }
 
+export interface RiskLocationSelection {
+  label: string;
+  city?: string;
+  locality?: string;
+  state?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
+}
+
 const REPORT_TELEMETRY_KEY = 'prooffix_current_telemetry';
 const RISK_FILTER_CITY_KEY = 'selectedRiskCity';
+const RISK_FILTER_LOCATION_KEY = 'selectedRiskLocation';
 
 /**
  * Clean up legacy or mock location keys from sessionStorage & localStorage.
@@ -104,11 +115,43 @@ export function clearReportTelemetry(): void {
 }
 
 /**
+ * Get user-selected risk filter location.
+ */
+export function getSelectedRiskLocation(): RiskLocationSelection | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.sessionStorage.getItem(RISK_FILTER_LOCATION_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Save user-selected risk filter location.
+ */
+export function setSelectedRiskLocation(loc: RiskLocationSelection | null): void {
+  if (typeof window === 'undefined') return;
+  try {
+    if (!loc || loc.label === 'All Cities' || loc.label === 'All Areas') {
+      window.sessionStorage.removeItem(RISK_FILTER_LOCATION_KEY);
+      window.sessionStorage.setItem(RISK_FILTER_CITY_KEY, 'All Cities');
+    } else {
+      window.sessionStorage.setItem(RISK_FILTER_LOCATION_KEY, JSON.stringify(loc));
+      window.sessionStorage.setItem(RISK_FILTER_CITY_KEY, loc.city || loc.locality || loc.label);
+    }
+  } catch {}
+}
+
+/**
  * Get user-selected risk filter city. Defaults to 'All Cities'.
  */
 export function getSelectedRiskCity(): string {
   if (typeof window === 'undefined') return 'All Cities';
   try {
+    const loc = getSelectedRiskLocation();
+    if (loc && loc.city) return loc.city;
     return window.sessionStorage.getItem(RISK_FILTER_CITY_KEY) || 'All Cities';
   } catch {
     return 'All Cities';
@@ -121,6 +164,11 @@ export function getSelectedRiskCity(): string {
 export function setSelectedRiskCity(city: string): void {
   if (typeof window === 'undefined') return;
   try {
-    window.sessionStorage.setItem(RISK_FILTER_CITY_KEY, city);
+    if (city === 'All Cities' || city === 'All Areas') {
+      window.sessionStorage.removeItem(RISK_FILTER_LOCATION_KEY);
+      window.sessionStorage.setItem(RISK_FILTER_CITY_KEY, 'All Cities');
+    } else {
+      window.sessionStorage.setItem(RISK_FILTER_CITY_KEY, city);
+    }
   } catch {}
 }
