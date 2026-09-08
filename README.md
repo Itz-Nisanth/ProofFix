@@ -1,117 +1,109 @@
 # ProofFix 🛡️
 
-> **Live Production Deployment**: [https://prooffix.vercel.app/](https://prooffix.vercel.app/)
+> **Live Demo:** [https://prooffix.vercel.app/](https://prooffix.vercel.app/)
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL_%2B_PostGIS-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com/)
-[![Google Gemini](https://img.shields.io/badge/Google_Gemini-Multimodal_AI-4285F4?style=flat-square&logo=google)](https://ai.google.dev/)
-[![MapLibre GL](https://img.shields.io/badge/MapLibre_GL-Interactive_Maps-brightgreen?style=flat-square)](https://maplibre.org/)
-[![Geoapify](https://img.shields.io/badge/Geoapify-Address_Autocomplete-orange?style=flat-square)](https://www.geoapify.com/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+ProofFix is a community-driven civic issue reporting and verification platform designed to make civic reports more trustworthy, less repetitive, and easier to prioritize.
 
-**ProofFix** is a decentralized, community-driven civic infrastructure reporting, verification, and resolution platform. It eliminates fake, duplicate, and unaddressed civic complaints (potholes, fallen trees, live electrical wires, road blockages, sewage leaks) through **mandatory GPS telemetry, live WebRTC camera proof, Google Gemini Multimodal AI inspection, PostGIS duplicate detection, and proof-of-resolution visual audits**.
+Citizens report real-world issues using live camera capture and device geolocation. Google Gemini extracts structured observations from the evidence, while ProofFix's deterministic scoring engine calculates urgency. PostGIS identifies nearby reports, and multi-factor duplicate detection can convert repeat reports into independent community confirmations instead of duplicate tickets.
+
+ProofFix also supports proof-of-resolution: a new on-site capture is compared against the original evidence before an incident is marked resolved.
+
+---
+
+## 🎯 Why ProofFix?
+
+Most civic reporting systems answer:
+> **"How do we submit complaints?"**
+
+ProofFix focuses on a different question:
+> **"How do we know the report is current, distinct, important, and actually resolved?"**
+
+ProofFix connects the entire lifecycle into a verifiable evidence trail:
+
+$$\text{Live Evidence} \longrightarrow \text{Location Context} \longrightarrow \text{AI Observation} \longrightarrow \text{Deterministic Priority} \longrightarrow \text{Duplicate Detection} \longrightarrow \text{Community Confirmation} \longrightarrow \text{Resolution Verification}$$
 
 ---
 
 ## 📑 Table of Contents
 
 - [The Problem](#-the-problem)
-- [The ProofFix Solution](#-the-proofFix-solution)
-- [Core Features & Workflows](#-core-features--workflows)
-  - [1. Verifiable Incident Capture](#1-verifiable-incident-capture)
-  - [2. Multimodal AI Analysis](#2-multimodal-ai-analysis)
+- [How ProofFix Works](#-how-prooffix-works)
+  - [1. Fresh Evidence Capture](#1-fresh-evidence-capture)
+  - [2. Multimodal AI Observations (Gemini)](#2-multimodal-ai-observations-gemini)
   - [3. Deterministic 100-Point Priority Engine](#3-deterministic-100-point-priority-engine)
   - [4. PostGIS 4-Factor Smart Duplicate Detection](#4-postgis-4-factor-smart-duplicate-detection)
-  - [5. Geoapify Autocomplete & Interactive Risk Map](#5-geoapify-autocomplete--interactive-risk-map)
-  - [6. Proof-of-Resolution Visual Verification](#6-proof-of-resolution-visual-verification)
+  - [5. Searchable Location Discovery & Risk Map](#5-searchable-location-discovery--risk-map)
+  - [6. Proof-of-Resolution Visual Audit](#6-proof-of-resolution-visual-audit)
 - [System Architecture](#-system-architecture)
 - [Tech Stack](#-tech-stack)
-- [Database Schema (PostgreSQL + PostGIS)](#-database-schema-postgresql--postgis)
+- [Database & Schema](#-database--schema)
 - [API Reference](#-api-reference)
-- [Security & Trust Architecture](#-security--trust-architecture)
-- [Environment Variables](#-environment-variables)
+- [Security & Trust Model](#-security--trust-model)
 - [Getting Started Locally](#-getting-started-locally)
-- [Building for Production](#-building-for-production)
 
 ---
 
 ## 🚨 The Problem
 
-Traditional municipal complaint portals and civic apps suffer from critical systemic flaws:
-1. **Fake or Stale Complaints**: Users upload old gallery photos from unrelated events or stock images.
-2. **Ticket Spam & Clutter**: Hundreds of people file separate tickets for the same single pothole or fallen tree.
-3. **Subjective Prioritization**: Critical safety hazards (e.g., dangling live wires near schools) get buried under low-priority cosmetic issues.
-4. **Unverifiable Resolutions**: Authorities mark tickets "Resolved" without photographic evidence, leaving hazards unrepaired in reality.
+Traditional municipal complaint portals and civic apps face critical operational bottlenecks:
+
+1. **Unverifiable & Stale Complaints**: Users upload old gallery photos from unrelated events or downloaded images.
+2. **Ticket Clutter & Redundant Spam**: Dozens of residents file separate tickets for the same single pothole or fallen tree.
+3. **Subjective Prioritization**: Critical safety hazards (e.g., dangling live wires near schools) get lost in flat, unprioritized queues.
+4. **Weak Resolution Verification**: A ticket status may change without enough evidence that the physical issue has actually been addressed.
 
 ---
 
-## 💡 The ProofFix Solution
+## 💡 How ProofFix Works
 
-ProofFix establishes an unforgeable chain of custody for every civic report:
+### 1. Fresh Evidence Capture
+- **Live Device Geolocation**: Captures real-time device coordinates (`latitude`, `longitude`, `accuracy`) via `navigator.geolocation` and reverse-geocodes them to the real locality.
+- **Direct WebRTC Camera Stream**: Streamed straight from device camera sensors. Removes direct gallery-upload reuse and strengthens the freshness and authenticity of reported evidence.
 
-```
-[Real GPS Acquired] 
-       ↓ 
-[Live WebRTC Camera Stream Only (No File Uploads)] 
-       ↓ 
-[Gemini Multimodal AI Observation Extraction] 
-       ↓ 
-[Deterministic 100-Point Safety Priority Engine] 
-       ↓ 
-[PostGIS 30m Radius 4-Factor Duplicate Prevention] 
-       ↓ 
-[Supabase PostGIS Persistence & Community Confirmation] 
-       ↓ 
-[On-Site Before vs After Gemini Proof-of-Resolution]
-```
-
----
-
-## 🌟 Core Features & Workflows
-
-### 1. Verifiable Incident Capture
-- **Hardware-Enforced GPS**: Captures raw device `latitude`, `longitude`, and `accuracy` via `navigator.geolocation` and reverse-geocodes to the real locality using Geoapify / OSM.
-- **Hardware Camera Only**: The report flow streams directly from device video sensors via WebRTC canvas. Gallery and file upload paths are strictly prohibited to prevent fake evidence.
-
-### 2. Multimodal AI Analysis
-- Sends live image bytes directly to **Google Gemini** (`gemini-3.8-flash`).
-- Extracts structured civic risk observations:
+### 2. Multimodal AI Observations (Gemini)
+- Sends captured image bytes to **Google Gemini** (`gemini-3.8-flash`).
+- Extracts structured physical observations:
   - Road blockage & traffic disruption level (`none`, `minor`, `moderate`, `severe`)
-  - Live/hanging electrical wire hazards
+  - Live or hanging electrical wire hazards
   - Overhead structural/falling hazards
   - Chemical, sewage, or wastewater contamination
   - Deep sinkholes, craters, or road cave-ins
 
 ### 3. Deterministic 100-Point Priority Engine
-Gemini extracts physical observations from the image, but **code deterministically calculates the final score** (`0` to `100` pts) using strict civic scoring rules:
-- **Human Safety (Max 40 pts)**: Live wires (+30), deep cave-ins (+25), falling structures (+20).
-- **Environmental & Health (Max 25 pts)**: Chemical/sewage leaks (+25).
-- **Public Obstruction (Max 15 pts)**: Full road block (+15), lane block (+10), passage block (+5).
-- **Independent Confirmations (Max 10 pts)**: 2 pts per unique neighbor verification.
-- **Age / Time Unresolved (Max 10 pts)**: Escalates automatically over time.
+> **Core Architectural Rule**: *Gemini observes; deterministic code decides the score.*
+
+Gemini extracts physical observations, but the final numerical score ($0$ to $100$ pts) is deterministically calculated by code:
+
+$$\text{Total Score} = \text{Human Safety} + \text{Environmental Risk} + \text{Public Obstruction} + \text{Confirmations} + \text{Time Unresolved}$$
+
+| Scoring Dimension | Max Points | Evaluation Factors |
+|---|---|---|
+| **Human Safety** | **40 pts** | Live wire hazard (+30), deep cave-in (+25), structural fall hazard (+20) |
+| **Environmental & Health** | **25 pts** | Contaminated wastewater or chemical hazard (+25) |
+| **Public Obstruction** | **15 pts** | Major road blocked (+15), single lane blocked (+10), passage blocked (+5) |
+| **Community Confirmations** | **10 pts** | 2 pts per unique neighbor verification |
+| **Time Unresolved** | **10 pts** | Escalates automatically over time if left unaddressed |
 
 ### 4. PostGIS 4-Factor Smart Duplicate Detection
-When a user submits a report:
-1. PostGIS checks for existing open incidents within a **30-meter radius** (`ST_DWithin`).
-2. If candidates exist, ProofFix calculates a multi-modal score:
+When a new report is initiated:
+1. PostGIS queries for open incidents within a **30-meter radius** (`ST_DWithin`).
+2. If nearby candidates exist, a multi-factor weighted evaluation runs:
    - **Location Proximity (30%)**
    - **Category Similarity (25%)**
-   - **Visual Similarity (35%)** (via Gemini image comparison)
+   - **Visual Similarity (35%)** (via Gemini visual comparison)
    - **Time Proximity (10%)**
-3. If score $\ge 80$, the user is shown the existing issue and prompted to submit an **Independent Confirmation** instead of creating a duplicate ticket.
+3. **Smart Conversion**: If similarity $\ge 80$, the user is shown the existing issue and prompted to add an **Independent Confirmation** instead of creating a duplicate ticket.
 
-### 5. Geoapify Autocomplete & Interactive Risk Map
-- **Search Any City or Area**: Fast, debounced (400ms) location selector powered by Geoapify Address Autocomplete, restricted to India.
-- **MapLibre GL Interactive Canvas**: Plots live incident pins with severity color coding (`Critical`, `High`, `Medium`, `Resolved`) and auto-fits bounds.
-- **Device GPS vs. Discovery Isolation**: Browsing other cities does not tamper with the user's reporting GPS coordinates.
+### 5. Searchable Location Discovery & Risk Map
+- **Geoapify Address Autocomplete**: Fast, debounced (400ms) city and locality search across India (`/api/location-search`).
+- **MapLibre GL Interactive Canvas**: Renders live PostGIS coordinates with severity-coded pins (`Critical`, `High`, `Medium`, `Resolved`).
+- **Isolated Telemetry**: Browsing different cities in discovery mode does not modify the user's reporting GPS state.
 
-### 6. Proof-of-Resolution Visual Verification
-- Anyone in the community or municipal staff can resolve an incident.
-- **On-Site Proximity Requirement**: Resolver must physically be within 50m of the original incident coordinates.
-- **Before vs. After Gemini AI Comparison**: Gemini compares the original report image against the newly captured resolution frame to verify that the obstruction is completely cleared.
-- Status is securely transitioned from `open` $\rightarrow$ `resolved` only upon verified proof.
+### 6. Proof-of-Resolution Visual Audit
+- Anyone in the community or municipal staff can assist in resolving an issue.
+- **On-Site Proximity Check**: The resolver must physically be within 50m of the original incident coordinates.
+- **Before vs. After Gemini AI Comparison**: Gemini compares the original report image against the newly captured resolution frame to confirm the hazard is cleared.
+- Status securely transitions from `open` $\rightarrow$ `resolved` upon verified proof.
 
 ---
 
@@ -119,46 +111,25 @@ When a user submits a report:
 
 ```mermaid
 flowchart TD
-    subgraph Client["Browser / PWA"]
-        UI[Next.js App Router UI]
-        GPS[Hardware Geolocation API]
-        CAM[Live WebRTC Camera Stream]
-        MAP[MapLibre GL Interactive Map]
-    end
+    Client["Browser / Mobile Client"] --> GPS["Device Geolocation"]
+    Client --> CAM["WebRTC Live Viewfinder"]
+    Client --> UI["Next.js App Router Interface"]
 
-    subgraph Server["Next.js Server (API Routes)"]
-        AUTH_CHK[Session Auth & Security Guard]
-        LOC_API["/api/location-search (Geoapify)"]
-        GEO_API["/api/geocode"]
-        INC_API["/api/incidents"]
-        AI_API["/api/analyze-incident (Gemini)"]
-        CONF_API["/api/confirm-incident"]
-        RES_API["/api/verify-resolution (Gemini Vision)"]
-        ENGINE[Priority & Duplicate Engines]
-    end
+    UI --> API_SEARCH["/api/location-search"]
+    UI --> API_GEO["/api/geocode"]
+    UI --> API_INC["/api/incidents"]
+    UI --> API_AI["/api/analyze-incident"]
+    UI --> API_CONF["/api/confirm-incident"]
+    UI --> API_RES["/api/verify-resolution"]
 
-    subgraph Backend["Cloud Infrastructure"]
-        SUPA_AUTH[Supabase Auth (Google OAuth)]
-        SUPA_DB[(Supabase PostgreSQL + PostGIS)]
-        SUPA_STORAGE[Supabase Storage Buckets]
-        GEMINI_AI[Google Gemini API]
-        GEOAPIFY[Geoapify Autocomplete API]
-    end
+    API_SEARCH --> GEOAPIFY["Geoapify Autocomplete API"]
+    API_AI --> GEMINI["Google Gemini API"]
+    API_RES --> GEMINI
 
-    GPS --> UI
-    CAM --> UI
-    UI --> LOC_API --> GEOAPIFY
-    UI --> GEO_API
-    UI --> INC_API
-    UI --> AI_API --> GEMINI_AI
-    UI --> CONF_API
-    UI --> RES_API --> GEMINI_AI
-    
-    INC_API --> AUTH_CHK --> SUPA_DB
-    INC_API --> SUPA_STORAGE
-    CONF_API --> SUPA_DB
-    RES_API --> SUPA_DB
-    MAP <--> SUPA_DB
+    API_INC --> SUPA_DB[("Supabase PostgreSQL + PostGIS")]
+    API_INC --> SUPA_STORAGE["Supabase Storage Buckets"]
+    API_CONF --> SUPA_DB
+    API_RES --> SUPA_DB
 ```
 
 ---
@@ -167,61 +138,53 @@ flowchart TD
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| **Framework** | Next.js 14 (App Router) | Server-rendered React framework & API routes |
-| **Language** | TypeScript | Strict type safety and robust contracts |
-| **Styling** | Tailwind CSS | Custom civic design system & responsive layout |
-| **Database** | PostgreSQL + PostGIS | Geospatial spatial queries (`ST_DWithin`, `ST_Distance`) |
-| **Database Provider** | Supabase | Managed PostgreSQL, Row-Level Security, Realtime |
-| **Authentication** | Supabase Auth (OAuth) | Google Sign-in with session persistence |
-| **Storage** | Supabase Storage | S3-compatible evidence storage buckets |
-| **AI / Vision** | Google Gemini API (`gemini-3.8-flash`) | Multimodal image understanding & comparison |
-| **Mapping** | MapLibre GL | Vector & raster interactive map rendering |
-| **Geocoding** | Geoapify Autocomplete API | Fast, debounced address search across India |
+| **Framework** | Next.js 14 (App Router) | Server-rendered React application & API routes |
+| **Language** | TypeScript | Strict type safety and robust API contracts |
+| **Styling** | Tailwind CSS | Civic design system with mobile-responsive layouts |
+| **Database** | PostgreSQL + PostGIS | Geospatial indexing & spatial queries (`ST_DWithin`, `ST_Distance`) |
+| **Platform** | Supabase | Managed PostgreSQL, Row-Level Security, Auth, Storage |
+| **Authentication** | Supabase Auth (OAuth) | Google OAuth with session persistence |
+| **AI / Vision** | Google Gemini API (`gemini-3.8-flash`) | Multimodal image understanding & visual comparison |
+| **Mapping** | MapLibre GL | Interactive vector and raster map rendering |
+| **Geocoding** | Geoapify Autocomplete API | Debounced address and locality search across India |
 
 ---
 
-## 🗄️ Database Schema (PostgreSQL + PostGIS)
+## 🗄️ Database & Schema
 
-ProofFix runs on Supabase PostgreSQL with the `postgis` extension enabled:
+ProofFix uses Supabase PostgreSQL with the PostGIS extension for geospatial operations.
+
+> The complete production schema, including PostGIS indexes, RLS policies, confirmation triggers, storage policies, and RPC functions, is available in [`supabase/schema.sql`](./supabase/schema.sql).
+
+### Core Tables Conceptual Overview
 
 ```sql
--- Enable PostGIS extension
-create extension if not exists postgis;
-
--- User Profiles
-create table public.profiles (
-  id uuid references auth.users on delete cascade primary key,
-  full_name text,
-  avatar_url text,
-  reputation_score integer default 10,
-  created_at timestamp with time zone default now()
+-- Public Incidents Table with PostGIS Geography Point
+CREATE TABLE public.incidents (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  reporter_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  category TEXT NOT NULL,
+  severity TEXT NOT NULL CHECK (severity IN ('low', 'medium', 'high', 'critical')),
+  status TEXT NOT NULL DEFAULT 'open' CHECK (status IN ('open', 'in_progress', 'resolved')),
+  location GEOGRAPHY(Point, 4326) NOT NULL,
+  latitude DOUBLE PRECISION NOT NULL,
+  longitude DOUBLE PRECISION NOT NULL,
+  location_accuracy DOUBLE PRECISION,
+  city TEXT,
+  address_text TEXT,
+  primary_image_url TEXT NOT NULL,
+  ai_observations JSONB DEFAULT '{}'::jsonb,
+  priority_breakdown JSONB DEFAULT '{}'::jsonb,
+  confirmation_count INTEGER DEFAULT 1,
+  captured_at TIMESTAMPTZ DEFAULT NOW(),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Civic Incidents Table
-create table public.incidents (
-  id uuid default gen_random_uuid() primary key,
-  reporter_id uuid references public.profiles(id) on delete set null,
-  title text not null,
-  description text,
-  category text not null,
-  severity text not null check (severity in ('low', 'medium', 'high', 'critical')),
-  status text not null default 'open' check (status in ('open', 'in_progress', 'resolved')),
-  location geography(Point, 4326) not null,
-  latitude double precision not null,
-  longitude double precision not null,
-  location_accuracy double precision default 5.0,
-  city text,
-  address_text text,
-  primary_image_url text not null,
-  ai_observations jsonb default '{}'::jsonb,
-  priority_breakdown jsonb default '{}'::jsonb,
-  confirmation_count integer default 1,
-  captured_at timestamp with time zone default now(),
-  created_at timestamp with time zone default now()
-);
-
--- Spatial Index for Ultra-Fast Radius Queries
-create index idx_incidents_location on public.incidents using gist (location);
+-- Spatial GIST Index for Sub-Millisecond 30m Proximity Queries
+CREATE INDEX idx_incidents_location ON public.incidents USING GIST (location);
 ```
 
 ---
@@ -230,7 +193,7 @@ create index idx_incidents_location on public.incidents using gist (location);
 
 | Method | Endpoint | Description | Auth Required |
 |---|---|---|---|
-| `GET` | `/api/incidents` | Fetch incidents by `city`, `severity`, or `status` | Public |
+| `GET` | `/api/incidents` | Fetch incidents filtered by `city`, `severity`, or `status` | Public |
 | `POST` | `/api/incidents` | Submit verified incident with storage upload | **Yes (Google OAuth)** |
 | `POST` | `/api/analyze-incident` | Send raw image bytes to Gemini Multimodal AI | Optional |
 | `POST` | `/api/confirm-incident` | Add neighbor confirmation & increment counter | **Yes** |
@@ -240,25 +203,42 @@ create index idx_incidents_location on public.incidents using gist (location);
 
 ---
 
-## 🔒 Security & Trust Architecture
+## 🔒 Security & Trust Model
 
-- **Server-Only Secrets**: `SUPABASE_SERVICE_ROLE_KEY`, `GEMINI_API_KEY`, and `GEOAPIFY_API_KEY` are executed strictly in server runtime (`import 'server-only'`) and are never bundled into client JS.
-- **Session-Derived User IDs**: The server extracts the authenticated user ID from Supabase auth session tokens. Client-provided `reporter_id` fields in JSON payloads are ignored to prevent spoofing.
-- **Row-Level Security (RLS)**: Direct database mutations from client sessions are blocked by Supabase RLS policies; updates flow through verified server endpoints.
-- **Anti-Self-Confirmation**: PostgreSQL triggers and application logic prevent original reporters from self-confirming their own submissions.
+- **Server-Isolated Credentials**: `SUPABASE_SERVICE_ROLE_KEY`, `GEMINI_API_KEY`, and `GEOAPIFY_API_KEY` are executed strictly in server runtime (`import 'server-only'`) and are never bundled into client JS.
+- **Session-Derived Identity**: The server derives authenticated user IDs directly from Supabase auth session tokens. Client-provided `reporter_id` fields in JSON payloads are ignored to prevent spoofing.
+- **Row-Level Security (RLS)**: Client database updates are constrained by Supabase RLS policies. Privileged mutations (e.g. status changes upon resolution) execute through server validation.
+- **Anti-Self-Confirmation**: PostgreSQL triggers and application logic prevent original reporters from confirming their own submissions.
 
 ---
 
-## ⚙️ Environment Variables
+## 🚀 Getting Started Locally
 
-Create a `.env.local` file in the project root:
+### 1. Prerequisites
+- Node.js 18.x or 20.x
+- npm / yarn / pnpm
+
+### 2. Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Itz-Nisanth/ProofFix.git
+cd ProofFix
+
+# Install dependencies
+npm install
+```
+
+### 3. Environment Configuration
+
+Create a `.env.local` file:
 
 ```env
 # Google Gemini Multimodal AI
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-3.8-flash
 
-# Supabase Real Remote PostgreSQL & PostGIS Config
+# Supabase PostgreSQL + PostGIS Config
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
@@ -267,61 +247,29 @@ SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
 GEOAPIFY_API_KEY=your_geoapify_api_key_here
 ```
 
----
+### 4. Database Setup
 
-## 🚀 Getting Started Locally
+Execute the schema and PostGIS functions located in [`supabase/schema.sql`](./supabase/schema.sql) inside your Supabase SQL Editor.
 
-### Prerequisites
-- Node.js 18.x or 20.x
-- npm / yarn / pnpm
-
-### Installation
+### 5. Run Development Server
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/Itz-Nisanth/ProofFix.git
-cd ProofFix
-
-# 2. Install dependencies
-npm install
-
-# 3. Configure environment variables
-cp .env.local.example .env.local
-# (Fill in your GEMINI_API_KEY, SUPABASE keys, and GEOAPIFY_API_KEY)
-
-# 4. Run database migrations in Supabase SQL Editor
-# Copy the contents of supabase/schema.sql and execute in Supabase
-
-# 5. Start the local development server
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) in your browser.
+Visit [http://localhost:3000](http://localhost:3000).
 
 ---
 
 ## 📦 Building for Production
 
-To validate TypeScript types and build the production bundle:
-
 ```bash
 npm run build
-```
-
-To start the production server:
-
-```bash
 npm run start
 ```
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
----
-
 <p align="center">
-  Built with ❤️ for resilient, verifiable civic infrastructure.
+  <b>ProofFix</b> — Verifiable civic reporting and resolution.
 </p>
